@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Travel.Notifier.Hubs;
@@ -17,6 +18,8 @@ namespace Travel.Notifier.Controllers
         [HttpGet("/Signal/{id}")]
         public async Task<IActionResult> Signal(string id)
         {
+
+            Console.WriteLine($"sended {id}");
             await _hubContext.Clients.All.SendAsync("newSignal", id);
             return Ok();
         }
