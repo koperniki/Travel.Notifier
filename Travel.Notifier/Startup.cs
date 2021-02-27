@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travel.Notifier.Hubs;
@@ -35,13 +36,13 @@ namespace Travel.Notifier
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotifierHub>("/state");
+                endpoints.MapHub<NotifierHub>("/state",
+                    options => { options.Transports = HttpTransportType.WebSockets; });
             });
         }
     }
