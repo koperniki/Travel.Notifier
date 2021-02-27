@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travel.Notifier.Hubs;
+using Travel.Notifier.Services;
 
 namespace Travel.Notifier
 {
@@ -24,6 +25,7 @@ namespace Travel.Notifier
             });
             services.AddSignalR();
             services.AddControllers();
+            services.AddSingleton<ButtonStateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +41,7 @@ namespace Travel.Notifier
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotifierHub>("/chart");
+                endpoints.MapHub<NotifierHub>("/state");
             });
         }
     }
