@@ -25,7 +25,8 @@ namespace Travel.Notifier.Services
             {
                 Number = number,
                 State = state,
-                Time = DateTime.UtcNow
+                Time = DateTime.UtcNow,
+                Location = Locations.GetLocation(number)
             };
         }
 

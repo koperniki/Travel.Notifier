@@ -10,5 +10,7 @@ namespace Travel.Notifier.Models
         public bool State { get; set; }
 
         public int Number { get; set; }
+
+        public string Location { get; set; }
     }
 }
