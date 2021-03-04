@@ -8,10 +8,12 @@ namespace Travel.Notifier.Hubs
     public class NotifierHub : Hub
     {
         private readonly ButtonStateService _stateService;
+        private readonly GameStateService _gameService;
 
-        public NotifierHub(ButtonStateService stateService)
+        public NotifierHub(ButtonStateService stateService, GameStateService gameService)
         {
             _stateService = stateService;
+            _gameService = gameService;
         }
 
         public override async Task OnConnectedAsync()
@@ -20,6 +22,7 @@ namespace Travel.Notifier.Hubs
             Console.WriteLine(Context.ConnectionId);
             await Task.Delay(1000);
             await Clients.Client(Context.ConnectionId).SendAsync("transferstatedata", _stateService.GetButtons());
+            await Clients.Client(Context.ConnectionId).SendAsync("transfergamedata", _gameService.GetButtons());
 
         }
     }
