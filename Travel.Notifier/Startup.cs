@@ -27,6 +27,7 @@ namespace Travel.Notifier
             services.AddSignalR();
             services.AddControllers();
             services.AddSingleton<ButtonStateService>();
+            services.AddSingleton<GameStateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
