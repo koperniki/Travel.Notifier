@@ -8,9 +8,9 @@ namespace Travel.Notifier.Models
         private static Dictionary<int, string> _locations = new Dictionary<int, string>()
         {
             {1, "Бухгалтерия"},
-            {2, "112"},
+            {2, "114"},
             {3, "113"},
-            {4, "114-тестеры"},
+            {4, "112-тестеры"},
             {5, "103-продажники"},
             {6, "103-гробик"},
         };
