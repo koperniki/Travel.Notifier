@@ -14,16 +14,6 @@ namespace Travel.Notifier
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
-            services.AddCors(options =>
-            {
-  
-                options.AddPolicy("CorsPolicy", builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
             services.AddSignalR();
             services.AddControllers();
             services.AddSingleton<ButtonStateService>();
@@ -38,11 +28,19 @@ namespace Travel.Notifier
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            app.UseCors("CorsPolicy");
+            app.UseCors(x => x
+                   .SetIsOriginAllowed(_ => true)
+                   .AllowCredentials()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod());
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotifierHub>("/state",
+                endpoints.MapHub<NotifierHub>("hubs/state",
                     options => { options.Transports = HttpTransportType.WebSockets; });
             });
         }
