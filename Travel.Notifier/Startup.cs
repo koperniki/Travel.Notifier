@@ -41,8 +41,7 @@ namespace Travel.Notifier
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<NotifierHub>("hubs/state",
-                    options => { options.Transports = HttpTransportType.WebSockets; });
+                endpoints.MapHub<NotifierHub>("hubs/state");
             });
         }
     }
